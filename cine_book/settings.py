@@ -123,7 +123,7 @@ if DATABASE_URL:
     # Production / Render PostgreSQL
     DATABASES = {
         'default': dj_database_url.parse(
-            postgresql://praveen:ibuzJiEzzBU4X3prnwHmHCH0pggClp0I@dpg-daf2tp9t0dsc73cb0aog-a/summa_l96e,
+            DATABASE_URL,
             conn_max_age=600,
         )
     }
