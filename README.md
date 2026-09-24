@@ -1,5 +1,8 @@
 # 🎬 CineBook — Movie Ticket Booking Platform
 
+#Live Demo
+https://cine-book-4c52.onrender.com/
+
 CineBook is a full-stack **Django MVT** movie ticket booking platform. Browse
 movies, pick a show, choose your seats on a dynamic cinema-style seat map,
 pay with a simulated demo payment, and get an instant e-ticket — all backed
