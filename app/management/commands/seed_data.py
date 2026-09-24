@@ -60,7 +60,7 @@ MOVIES = [
         genre='Action',
         rating=8.3,
         certificate='UA',
-       
+       poster_color=(220, 38, 38),
         poster_path='movies/Dhruva-Natchathiram-4.jpg',
     ),
 
