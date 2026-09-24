@@ -36,80 +36,130 @@ except ImportError:
 # Demo dataset — edit these lists to change what gets seeded.
 # ---------------------------------------------------------------------------
 
+
 MOVIES = [
     dict(
-        title='Zenith Skies',
-        description='A daring pilot races against time to stop a global satellite blackout '
-                     'before the world goes dark.',
-        release_date_offset=-10, duration=142, language='English', genre='Action',
-        rating=8.1, certificate='UA', poster_color=(37, 99, 235),
-    ),
-    dict(
         title='Mahaan',
-        description='A gripping crime drama about family, loyalty and ambition spanning '
-                     'three generations of bootleggers.',
-        release_date_offset=-30, duration=155, language='Tamil', genre='Drama',
-        rating=7.8, certificate='UA', poster_color=(220, 38, 38),
+        description='A gripping Tamil crime drama about family, loyalty and ambition.',
+        release_date_offset=-30,
+        duration=155,
+        language='Tamil',
+        genre='Drama',
+        rating=7.8,
+        certificate='UA',
+        poster_color=(220, 38, 38),
         poster_path='movies/mahaan-poster-1643882959.jpg',
     ),
+
     dict(
-        title='Midnight Orchestra',
-        description='A soulful musical about a jazz band chasing one last big break in '
-                     'the smoky clubs of the city.',
-        release_date_offset=-5, duration=128, language='English', genre='Musical',
-        rating=7.4, certificate='U', poster_color=(217, 119, 6),
+        title='Vikram',
+        description='A Tamil action thriller following a special agent uncovering a dangerous criminal network.',
+        release_date_offset=-25,
+        duration=174,
+        language='Tamil',
+        genre='Action',
+        rating=8.3,
+        certificate='UA',
+        poster_color=(15, 23, 42),
     ),
+
     dict(
-        title='Silent Circuit',
-        description='A cybersecurity analyst uncovers a conspiracy that reaches all the '
-                     'way to the top of a tech empire.',
-        release_date_offset=-2, duration=118, language='English', genre='Thriller',
-        rating=8.5, certificate='A', poster_color=(15, 23, 42),
-        poster_path='movies/OIP.webp',
+        title='Jailer',
+        description='A retired jailer is forced to confront a dangerous criminal gang to protect his family.',
+        release_date_offset=-20,
+        duration=168,
+        language='Tamil',
+        genre='Action',
+        rating=7.5,
+        certificate='UA',
+        poster_color=(30, 41, 59),
     ),
+
     dict(
-        title='Vaanam Kaaval',
-        description='An air-force officer takes on a smuggling ring operating out of a '
-                     'coastal town in Tamil Nadu.',
-        release_date_offset=-14, duration=148, language='Tamil', genre='Action',
-        rating=7.6, certificate='UA', poster_color=(5, 150, 105),
+        title='Leo',
+        description='A quiet cafe owner is pulled into a violent past when dangerous men arrive looking for him.',
+        release_date_offset=-15,
+        duration=164,
+        language='Tamil',
+        genre='Action',
+        rating=7.4,
+        certificate='UA',
+        poster_color=(180, 83, 9),
     ),
+
     dict(
-        title='Ratnavel',
-        description='A warm family drama about a shopkeeper who becomes an unlikely '
-                     'hero for his neighbourhood.',
-        release_date_offset=-45, duration=136, language='Tamil', genre='Family',
-        rating=7.2, certificate='U', poster_color=(180, 83, 9),
+        title='Soorarai Pottru',
+        description='An ambitious man dreams of making air travel affordable for ordinary people.',
+        release_date_offset=-10,
+        duration=153,
+        language='Tamil',
+        genre='Drama',
+        rating=8.1,
+        certificate='U',
+        poster_color=(5, 150, 105),
     ),
+
     dict(
-        title='Parallel Minds',
-        description='Two scientists discover a way to communicate across parallel '
-                     'timelines - with unintended consequences.',
-        release_date_offset=-1, duration=132, language='English', genre='Sci-Fi',
-        rating=8.3, certificate='UA', poster_color=(109, 40, 217),
+        title='96',
+        description='Two school sweethearts meet years later and revisit their unforgettable memories.',
+        release_date_offset=-8,
+        duration=158,
+        language='Tamil',
+        genre='Romance',
+        rating=8.5,
+        certificate='U',
+        poster_color=(190, 24, 93),
     ),
+
     dict(
-        title='Kadal Kadhai',
-        description="A fisherman's daughter and a city photographer fall in love over "
-                     'one unforgettable monsoon.',
-        release_date_offset=-20, duration=124, language='Tamil', genre='Romance',
-        rating=7.0, certificate='U', poster_color=(190, 24, 93),
+        title='Doctor',
+        description='A calm and intelligent doctor gets involved in a dangerous kidnapping case.',
+        release_date_offset=-5,
+        duration=148,
+        language='Tamil',
+        genre='Comedy',
+        rating=7.4,
+        certificate='UA',
+        poster_color=(109, 40, 217),
     ),
+
     dict(
-        title='The Last Ledger',
-        description='A forensic accountant stumbles onto a decades-old financial crime '
-                     'that powerful people want buried.',
-        release_date_offset=-7, duration=140, language='Hindi', genre='Crime',
-        rating=8.0, certificate='A', poster_color=(30, 41, 59),
+        title='Master',
+        description='An alcoholic professor takes on a powerful gangster running a juvenile home.',
+        release_date_offset=-3,
+        duration=179,
+        language='Tamil',
+        genre='Action',
+        rating=7.3,
+        certificate='UA',
+        poster_color=(37, 99, 235),
     ),
+
     dict(
-        title='Chuckle Town',
-        description='Chaos erupts when a small town mistakes a travelling actor for a '
-                     'long-lost, very wealthy relative.',
-        release_date_offset=-3, duration=108, language='English', genre='Comedy',
-        rating=6.9, certificate='U', poster_color=(202, 138, 4),
+        title='Kaithi',
+        description='A prisoner gets one night to reunite with his daughter while helping police stop a drug gang.',
+        release_date_offset=-2,
+        duration=145,
+        language='Tamil',
+        genre='Thriller',
+        rating=8.4,
+        certificate='UA',
+        poster_color=(15, 23, 42),
+    ),
+
+    dict(
+        title='Kadaisi Vivasayi',
+        description='A simple farmer becomes the centre of an unexpected legal and emotional journey.',
+        release_date_offset=-1,
+        duration=145,
+        language='Tamil',
+        genre='Drama',
+        rating=8.0,
+        certificate='U',
+        poster_color=(22, 101, 52),
     ),
 ]
+
 
 THEATRES = [
     dict(
