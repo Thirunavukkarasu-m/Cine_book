@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Payment - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="summary-page">
+    <h2 class="section-title" style="padding:0; margin: 0 0 20px;">Payment</h2>
+
+    <div class="demo-note">
+        ⚠ This project uses a <strong>simulated demo payment</strong> for demonstration purposes only.
+        No real money is charged and no real payment gateway is contacted.
+    </div>
+
+    <div class="summary-card">
+        <h3>Booking Summary</h3>
+        <div class="summary-row"><span class="muted">Movie</span><span>{{ movie.title }}</span></div>
+        <div class="summary-row"><span class="muted">Show</span><span>{{ show.show_date|date:"d M Y" }}, {{ show.start_time|time:"g:i A" }}</span></div>
+        <div class="summary-row"><span class="muted">Seats</span><span>{% for seat in seats %}{{ seat.seat_number }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></div>
+        <div class="summary-row total"><span>Amount Payable</span><span>₹{{ total }}</span></div>
+    </div>
+
+    <form method="post" id="paymentForm">
+        {% csrf_token %}
+        <div class="summary-card">
+            <h3>Choose Payment Method</h3>
+            <div class="payment-methods">
+                {% for value, label in payment_methods %}
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="{{ value }}" {% if value == selected_method %}checked{% endif %}>
+                    {{ label }}
+                </label>
+                {% endfor %}
+            </div>
+
+            <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted); margin-top: 6px;">
+                <input type="checkbox" name="simulate_failure">
+                Simulate a failed payment (for demo purposes)
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="payBtn">Pay ₹{{ total }}</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function () {
+        var btn = document.getElementById('payBtn');
+        btn.disabled = true;
+        btn.textContent = 'Processing Payment...';
+    });
+</script>
+{% endblock %}

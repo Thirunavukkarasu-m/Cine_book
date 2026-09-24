@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Login - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+    <div class="form-card">
+        <h2>Welcome Back</h2>
+        <p class="form-subtitle">Log in to continue booking your favourite movies.</p>
+
+        {% if error %}
+            <div class="form-errors">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username" value="{{ username_value }}" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+
+        <p class="form-footer">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    </div>
+</div>
+
+{% endblock %}

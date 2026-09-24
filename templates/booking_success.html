@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmed - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="ticket">
+    <div class="ticket-header">
+        <h2>🎉 Booking Confirmed!</h2>
+        <p>CineBook e-Ticket</p>
+    </div>
+
+    <div class="ticket-body">
+        <div class="ticket-row"><span class="label">Booking ID</span><span class="value">{{ booking.booking_id }}</span></div>
+        <div class="ticket-row"><span class="label">Movie</span><span class="value">{{ booking.show.movie.title }}</span></div>
+        <div class="ticket-row"><span class="label">Theatre</span><span class="value">{{ booking.show.screen.theatre.name }}</span></div>
+        <div class="ticket-row"><span class="label">Screen</span><span class="value">{{ booking.show.screen.name }}</span></div>
+        <div class="ticket-row"><span class="label">Date</span><span class="value">{{ booking.show.show_date|date:"d M Y" }}</span></div>
+        <div class="ticket-row"><span class="label">Time</span><span class="value">{{ booking.show.start_time|time:"g:i A" }}</span></div>
+        <div class="ticket-row">
+            <span class="label">Seats</span>
+            <span class="value">{% for bs in booked_seats %}{{ bs.seat.seat_number }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+        </div>
+        <div class="ticket-row"><span class="label">Total</span><span class="value">₹{{ booking.total_amount }}</span></div>
+        <div class="ticket-row"><span class="label">Payment Method</span><span class="value">{{ booking.payment.get_payment_method_display }}</span></div>
+        <div class="ticket-row"><span class="label">Transaction ID</span><span class="value">{{ booking.payment.transaction_id }}</span></div>
+        <div class="ticket-row">
+            <span class="label">Status</span>
+            <span class="value"><span class="status-pill status-confirmed">{{ booking.get_status_display }}</span></span>
+        </div>
+    </div>
+
+    <div class="ticket-actions">
+        <a href="{% url 'my_bookings' %}" class="btn btn-outline">View My Bookings</a>
+        <button class="btn btn-outline" data-print>Print Ticket</button>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+
+{% endblock %}

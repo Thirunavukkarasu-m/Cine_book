@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}CineBook - Book Your Movie Experience{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Book Your Movie Experience</h1>
+    <p>Discover movies. Choose your theatre. Pick your favourite seats. Enjoy the show.</p>
+    <div class="hero-actions">
+        <a href="#movies" class="btn btn-primary">Explore Movies</a>
+        <a href="#movies" class="btn btn-outline">Now Showing</a>
+    </div>
+</section>
+
+<form method="get" class="filter-bar" id="movies">
+    <input type="text" name="search" placeholder="Search by title, genre or language..." value="{{ search }}">
+
+    <select name="genre">
+        <option value="">All Genres</option>
+        {% for genre in genres %}
+            <option value="{{ genre }}" {% if genre == selected_genre %}selected{% endif %}>{{ genre }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="language">
+        <option value="">All Languages</option>
+        {% for language in languages %}
+            <option value="{{ language }}" {% if language == selected_language %}selected{% endif %}>{{ language }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="sort">
+        <option value="">Sort: Newest</option>
+        <option value="rating" {% if selected_sort == 'rating' %}selected{% endif %}>Rating: High to Low</option>
+        <option value="title" {% if selected_sort == 'title' %}selected{% endif %}>Title: A to Z</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<h2 class="section-title">Now Showing</h2>
+
+{% if movies %}
+<div class="movie-grid">
+    {% for movie in movies %}
+    <div class="movie-card">
+        <a href="{% url 'movie_detail' movie.id %}">
+            <img class="movie-poster" src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        </a>
+        <div class="movie-card-body">
+            <div class="movie-title">{{ movie.title }}</div>
+            <div class="movie-meta">
+                <span class="badge">{{ movie.genre }}</span>
+                <span class="badge">{{ movie.language }}</span>
+                <span class="badge">{{ movie.duration }} min</span>
+                {% if movie.rating %}<span class="badge badge-rating">★ {{ movie.rating }}</span>{% endif %}
+            </div>
+            <div class="movie-card-actions">
+                <a href="{% url 'movie_detail' movie.id %}" class="btn btn-outline">Details</a>
+                <a href="{% url 'select_show' movie.id %}" class="btn btn-primary">Book Now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>No movies found</h3>
+    <p>Try a different search term or filter.</p>
+</div>
+{% endif %}
+
+{% endblock %}

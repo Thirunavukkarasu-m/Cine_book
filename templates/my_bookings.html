@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="bookings-page">
+    <h2 class="section-title" style="padding:0; margin: 0 0 20px;">My Bookings</h2>
+
+    {% if bookings %}
+    <div class="booking-list">
+        {% for booking in bookings %}
+        <div class="booking-card">
+            <div class="booking-card-info">
+                <h4>{{ booking.show.movie.title }} &mdash; {{ booking.booking_id }}</h4>
+                <p>{{ booking.show.screen.theatre.name }} &bull; {{ booking.show.show_date|date:"d M Y" }}, {{ booking.show.start_time|time:"g:i A" }}</p>
+                <p>Amount: ₹{{ booking.total_amount }} &bull; Payment: {% if booking.payment %}{{ booking.payment.get_status_display }}{% else %}—{% endif %}</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px;">
+                <span class="status-pill status-{{ booking.status|lower }}">{{ booking.get_status_display }}</span>
+                <a href="{% url 'booking_detail' booking.booking_id %}" class="btn btn-outline btn-sm">View Ticket</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No bookings yet</h3>
+        <p>Browse our movies and book your first show!</p>
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-primary">Explore Movies</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

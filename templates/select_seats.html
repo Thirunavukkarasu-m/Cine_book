@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Select Seats - {{ movie.title }}{% endblock %}
+
+{% block content %}
+
+<div class="seat-page">
+    <p><a href="{% url 'select_show' movie.id %}" class="btn btn-outline btn-sm">&larr; Change Show</a></p>
+
+    <h2 class="section-title" style="padding:0; margin: 18px 0 6px;">{{ movie.title }}</h2>
+    <p style="color:var(--text-muted); margin-bottom: 24px;">
+        {{ show.screen.theatre.name }} &bull; {{ show.screen.name }} &bull;
+        {{ show.show_date|date:"d M Y" }} &bull; {{ show.start_time|time:"g:i A" }}
+    </p>
+
+    <div class="screen-visual">
+        <div class="screen-shape">SCREEN THIS WAY</div>
+    </div>
+
+    <form method="post" id="seatForm">
+        {% csrf_token %}
+        <input type="hidden" name="seat_ids" id="seatIdsInput" value="">
+
+        <div class="seat-map" id="seatMap" data-max-seats="10">
+            {% regroup seats by row_label as row_list %}
+            {% for row in row_list %}
+            <div class="seat-row">
+                <span class="row-label">{{ row.grouper }}</span>
+                {% for seat in row.list %}
+                    <div
+                        class="seat {{ seat.seat_type|lower }}{% if seat.id in booked_seat_ids %} booked{% endif %}"
+                        data-id="{{ seat.id }}"
+                        data-number="{{ seat.seat_number }}"
+                        data-price="{{ seat.price }}"
+                        title="{{ seat.seat_number }} - {{ seat.get_seat_type_display }} - ₹{{ seat.price }}"
+                    >{{ seat.seat_number }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="seat-legend">
+            <span><span class="legend-box legend-available"></span> Available</span>
+            <span><span class="legend-box legend-selected"></span> Selected</span>
+            <span><span class="legend-box legend-booked"></span> Booked</span>
+        </div>
+
+        <div class="seat-summary-bar">
+            <div>
+                <div class="summary-text">Selected seats (<span id="selectedCount">0</span>): <span id="selectedNames">None selected</span></div>
+                <div class="summary-total">Total: <span id="selectedTotal">₹0.00</span></div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="continueBtn" disabled>Continue to Review</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/seat_selection.js' %}"></script>
+{% endblock %}

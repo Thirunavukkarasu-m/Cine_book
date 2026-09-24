@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Select Show - {{ movie.title }}{% endblock %}
+
+{% block content %}
+
+<div class="summary-page">
+    <p><a href="{% url 'movie_detail' movie.id %}" class="btn-outline btn btn-sm">&larr; Back to {{ movie.title }}</a></p>
+    <h2 class="section-title" style="padding:0; margin: 18px 0;">Select a Show</h2>
+
+    {% if theatres %}
+        {% for theatre, shows in theatres.items %}
+        <div class="theatre-block">
+            <div class="theatre-name">{{ theatre.name }}</div>
+            <div class="theatre-city">{{ theatre.location }}, {{ theatre.city }}</div>
+
+            {% regroup shows by screen as screen_list %}
+            {% for screen_group in screen_list %}
+            <div class="screen-row">
+                <div class="screen-label">{{ screen_group.grouper.name }}</div>
+                <div class="show-times">
+                    {% for show in screen_group.list %}
+                    <a href="{% url 'select_seats' show.id %}" class="show-time-btn">
+                        <span class="time">{{ show.start_time|time:"g:i A" }}</span>
+                        <span class="price">₹{{ show.ticket_price }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <h3>No shows available</h3>
+            <p>There are no upcoming shows scheduled for this movie right now.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

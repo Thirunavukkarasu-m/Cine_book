@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }} - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="movie-detail">
+    <div class="movie-detail-poster">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+    </div>
+
+    <div class="movie-detail-info">
+        <h1>{{ movie.title }}</h1>
+
+        <div class="movie-detail-meta">
+            <span class="badge">{{ movie.genre }}</span>
+            <span class="badge">{{ movie.language }}</span>
+            <span class="badge">{{ movie.duration }} min</span>
+            {% if movie.certificate %}<span class="badge">{{ movie.certificate }}</span>{% endif %}
+            {% if movie.rating %}<span class="badge badge-rating">★ {{ movie.rating }}</span>{% endif %}
+            <span class="badge">Release: {{ movie.release_date|date:"d M Y" }}</span>
+        </div>
+
+        <p class="movie-detail-desc">{{ movie.description }}</p>
+
+        <div class="movie-detail-actions">
+            {% if upcoming_shows_exist %}
+                <a href="{% url 'select_show' movie.id %}" class="btn btn-primary">Book Tickets</a>
+            {% else %}
+                <button class="btn btn-outline" disabled>No Shows Available</button>
+            {% endif %}
+
+            {% if movie.trailer_url %}
+                <a href="{{ movie.trailer_url }}" target="_blank" rel="noopener" class="btn btn-outline">Watch Trailer</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

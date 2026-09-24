@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Booking {{ booking.booking_id }} - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="ticket">
+    <div class="ticket-header">
+        <h2>CineBook Ticket</h2>
+        <p>{{ booking.booking_id }}</p>
+    </div>
+
+    <div class="ticket-body">
+        <div class="ticket-row"><span class="label">Movie</span><span class="value">{{ booking.show.movie.title }}</span></div>
+        <div class="ticket-row"><span class="label">Theatre</span><span class="value">{{ booking.show.screen.theatre.name }}</span></div>
+        <div class="ticket-row"><span class="label">Screen</span><span class="value">{{ booking.show.screen.name }}</span></div>
+        <div class="ticket-row"><span class="label">Date</span><span class="value">{{ booking.show.show_date|date:"d M Y" }}</span></div>
+        <div class="ticket-row"><span class="label">Time</span><span class="value">{{ booking.show.start_time|time:"g:i A" }}</span></div>
+        <div class="ticket-row">
+            <span class="label">Seats</span>
+            <span class="value">{% for bs in booked_seats %}{{ bs.seat.seat_number }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+        </div>
+        <div class="ticket-row"><span class="label">Total</span><span class="value">₹{{ booking.total_amount }}</span></div>
+        {% if booking.payment %}
+        <div class="ticket-row"><span class="label">Payment</span><span class="value">{{ booking.payment.get_payment_method_display }} ({{ booking.payment.get_status_display }})</span></div>
+        <div class="ticket-row"><span class="label">Transaction ID</span><span class="value">{{ booking.payment.transaction_id }}</span></div>
+        {% endif %}
+        <div class="ticket-row">
+            <span class="label">Status</span>
+            <span class="value">
+                <span class="status-pill status-{{ booking.status|lower }}">{{ booking.get_status_display }}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="ticket-actions">
+        <button class="btn btn-outline" data-print>Print Ticket</button>
+        <a href="{% url 'my_bookings' %}" class="btn btn-outline">Back to My Bookings</a>
+        {% if can_cancel %}
+        <form method="post" action="{% url 'cancel_booking' booking.booking_id %}" data-confirm="Are you sure you want to cancel this booking?">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Cancel Booking</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

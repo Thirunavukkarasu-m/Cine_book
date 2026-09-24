@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Summary - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="summary-page">
+    <h2 class="section-title" style="padding:0; margin: 0 0 20px;">Booking Summary</h2>
+
+    <div class="summary-card">
+        <h3>Show Details</h3>
+        <div class="summary-row"><span class="muted">Movie</span><span>{{ movie.title }}</span></div>
+        <div class="summary-row"><span class="muted">Theatre</span><span>{{ show.screen.theatre.name }}</span></div>
+        <div class="summary-row"><span class="muted">Screen</span><span>{{ show.screen.name }}</span></div>
+        <div class="summary-row"><span class="muted">Date</span><span>{{ show.show_date|date:"d M Y" }}</span></div>
+        <div class="summary-row"><span class="muted">Time</span><span>{{ show.start_time|time:"g:i A" }}</span></div>
+    </div>
+
+    <div class="summary-card">
+        <h3>Selected Seats</h3>
+        <div class="summary-row">
+            <span class="muted">Seats ({{ seats|length }})</span>
+            <span>{% for seat in seats %}{{ seat.seat_number }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h3>Price Details</h3>
+        <div class="summary-row"><span class="muted">Subtotal</span><span>₹{{ subtotal }}</span></div>
+        <div class="summary-row"><span class="muted">Convenience Fee</span><span>₹{{ convenience_fee }}</span></div>
+        <div class="summary-row total"><span>Total Payable</span><span>₹{{ total }}</span></div>
+    </div>
+
+    <a href="{% url 'payment' %}" class="btn btn-primary btn-block">Proceed to Payment</a>
+</div>
+
+{% endblock %}

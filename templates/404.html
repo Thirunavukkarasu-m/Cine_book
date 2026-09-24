@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found - CineBook{% endblock %}
+{% block content %}
+<div class="error-page">
+    <div class="error-code">404</div>
+    <p>The page you're looking for doesn't exist.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+</div>
+{% endblock %}

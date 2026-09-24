@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Access Denied - CineBook{% endblock %}
+{% block content %}
+<div class="error-page">
+    <div class="error-code">403</div>
+    <p>You don't have permission to access this page.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+</div>
+{% endblock %}

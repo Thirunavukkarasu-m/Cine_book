@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - CineBook{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+    <h2 class="section-title" style="padding:0; margin: 0 0 20px;">My Profile</h2>
+
+    <div class="profile-stats">
+        <div class="stat-box">
+            <div class="stat-number">{{ total_bookings }}</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">{{ upcoming_bookings }}</div>
+            <div class="stat-label">Upcoming Bookings</div>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h3 style="margin-bottom: 4px;">Account Details</h3>
+        <p class="form-subtitle">Username: <strong>{{ user.username }}</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_first_name">First Name</label>
+                <input type="text" name="first_name" id="id_first_name" placeholder="First name" value="{{ values.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="id_last_name">Last Name</label>
+                <input type="text" name="last_name" id="id_last_name" placeholder="Last name" value="{{ values.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                <input type="email" name="email" id="id_email" placeholder="you@example.com" value="{{ values.email }}">
+                {% if errors.email %}<div class="form-errors">{{ errors.email|join:", " }}</div>{% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
